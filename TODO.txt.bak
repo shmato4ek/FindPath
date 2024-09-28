@@ -1,0 +1,12 @@
+﻿Provide an implementation for FindShortestPath method. It should return the shortest path between the first (0,0) and the last (len - 1, len - 1) points in the two-dimentional array. The size of the array can vary. The path should contain no more then two types of digits (zero and five for example). It is allowed to move strictly up, down, left, right if the step contains zero (for example: 0 -> 4 or 5 -> 0). It is allowed to move in any direction, when step doesn't contain zeros (4 -> 4 or 4 -> 5).
+
+Evaluation criteria:
+1. Correctness and business requirements fulfillment;
+2. Code readability
+3. Performance in terms of CPU and Memory consumption;
+4. Lines of code;
+5. Usage of existing .net tools, lack of low-level data manipulations;
+6. C# version 5.0 or higher;
+
+Nice to have:
+7. Unit tests
