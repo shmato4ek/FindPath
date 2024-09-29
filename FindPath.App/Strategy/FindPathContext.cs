@@ -1,4 +1,5 @@
-﻿using System.Drawing;
+﻿using System;
+using System.Drawing;
 using FindPath.App.Strategy.Abstract;
 
 namespace FindPath.App.Strategy;
@@ -9,16 +10,16 @@ public class FindPathContext
 
     public FindPathContext(IFindPathStrategy findPathStrategy)
     {
-        _findPathStrategy = findPathStrategy;
+        _findPathStrategy = findPathStrategy; // setting search strategy
     }
 
     public Point[] FindPath(int[,] arr)
     {
-        if (arr.Length == 0)
+        if (arr.Length == 0) // input validation
         {
-            return null;
+            throw new Exception("Array must not be empty");
         }
         
-        return _findPathStrategy.FindShortestPath(arr);
+        return _findPathStrategy.FindShortestPath(arr); // running search strategy
     }
 }

@@ -8,70 +8,69 @@ namespace FindPath.App.Strategy.Abstract;
 public abstract class AbstractFindPathStrategy
 {
     private Func<int, int, bool> hasZero = (startValue, endValue) => 
-        startValue == 0 || endValue == 0;
+        startValue == 0 || endValue == 0; // checking if the values have zero
     
     private Func<int, int, bool> areEqual = (startValue, endValue) => 
-        startValue == endValue;
+        startValue == endValue; // checking if the values are equal
     
     private Func<int, int, bool> valuesNotZero = (startValue, endValue) => 
-        startValue != 0 && endValue != 0;
+        startValue != 0 && endValue != 0; // checking if any of the values is not zero
     
-    
-    protected List<Point> GetNextMoves(int indexX, int indexY, int[,] arr) 
+    protected List<Point> GetNextMoves(int indexX, int indexY, int[,] arr) // get possible next moves for path
     {
-        var startValue = arr[indexX, indexY];
-        var availablePoints = new List<Point>();
+        var startValue = arr[indexX, indexY]; // value of start point
+        var availablePoints = new List<Point>(); // list of all available points to move
 
-        //move right
+        // move right
         if (indexY != arr.GetLength(1) - 1 &&
             CanMoveRight(startValue, arr[indexX, indexY + 1]))
         {
             availablePoints.Add(new Point(indexX, indexY + 1)); 
         }
             
-        //move left
+        // move left
         if (indexY != 0 &&
             CanMoveLeft(startValue, arr[indexX, indexY - 1]))
         {
             availablePoints.Add(new Point(indexX, indexY - 1));
         }
 
-        //move down
+        // move down
         if (indexX != arr.GetLength(0) - 1 &&
             CanMoveDown(startValue, arr[indexX + 1, indexY]))
         {
             availablePoints.Add(new Point(indexX + 1, indexY));
         }
 
-        //move up
+        // move up
         if (indexX != 0 &&
             CanMoveUp(startValue, arr[indexX - 1, indexY]))
         {
             availablePoints.Add(new Point(indexX - 1, indexY));
         }
             
-        //move top left
+        // move top left
         if (indexX != 0 && indexY != 0 &&
             CanMoveTopLeft(startValue, arr[indexX - 1, indexY - 1]))
         {
             availablePoints.Add(new Point(indexX - 1, indexY - 1));
         }
             
-        //move top right
+        // move top right
         if (indexX != 0 && indexY != arr.GetLength(1) - 1 &&
             CanMoveTopRight(startValue, arr[indexX - 1, indexY + 1]))
         {
             availablePoints.Add(new Point(indexX - 1, indexY + 1));
         }
             
-        //move bottom left
+        // move bottom left
         if (indexX != arr.GetLength(0) - 1 && indexY != 0 &&
             CanMoveBottomLeft(startValue, arr[indexX + 1, indexY - 1]))
         {
             availablePoints.Add(new Point(indexX + 1, indexY - 1));
         }
             
-        //move bottom right
+        // move bottom right
         if (indexX != arr.GetLength(0) - 1 && indexY != arr.GetLength(1) - 1 &&
             CanMoveBottomRight(startValue, arr[indexX + 1, indexY + 1]))
         {
@@ -81,14 +80,14 @@ public abstract class AbstractFindPathStrategy
         return availablePoints;
     }
     
-    protected List<int> GetUniquePathValues(Point[] pathPoints, int[,] arr)
+    protected List<int> GetUniquePathValues(Point[] pathPoints, int[,] arr) // get unique points' values in path
     {
         var allPathValues = pathPoints.Select(point => arr[point.X, point.Y]).ToList();
 
         return allPathValues.Distinct().ToList();
     }
     
-    protected double GetEuclideanDistanceDistance(Point startPoint, Point finalPoint)
+    protected double GetEuclideanDistanceDistance(Point startPoint, Point finalPoint) // finding Euclidean distance between two points
     {
         return Math.Sqrt(Math.Pow(finalPoint.X - startPoint.X, 2) + Math.Pow(finalPoint.Y - startPoint.Y, 2));
     }

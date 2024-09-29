@@ -40,9 +40,16 @@ namespace FindPath.App
                 {0, 4, 4, 4, 4, 4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}
             };
 
-            foreach (var point in FindShortestPath(arr))
+            try
             {
-                Console.WriteLine(point);
+                foreach (var point in FindShortestPath(arr))
+                {
+                    Console.WriteLine(point);
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Something went wrong: {ex.Message}");
             }
             
             Console.ReadKey();
@@ -50,7 +57,7 @@ namespace FindPath.App
 
         public static Point[] FindShortestPath(int[,] arr)
         {
-            var findPathContext = new FindPathContext(new BfsSearchPathStrategy());
+            var findPathContext = new FindPathContext(new BfsSearchPathStrategy()); // setting search algorithm
             
             return findPathContext.FindPath(arr);
         }
