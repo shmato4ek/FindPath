@@ -6,25 +6,28 @@ using FindPath.App.Strategy.Abstract;
 
 namespace FindPath.App.Strategy.Implementation;
 
-public class BfsSearchStrategy: SearchStrategyBase, ISearchStrategy
+public sealed class BfsSearchPathStrategy: AbstractFindPathStrategy, IFindPathStrategy
 {
     public Point[] FindShortestPath(int[,] arr)
     {
         var allPaths = new List<Point[]>(); // all current paths
         var flag = true; // flag for algorithm evaluation cycle
         var resultPath = new List<Point>(); // result of bfs algorithm evaluation
+        var lastPoint = new Point(arr.GetLength(0) - 1, arr.GetLength(1) - 1);
 
-        var startingPoint = new Point(0, 0); // starting point
-        allPaths.Add(new Point[1] {startingPoint}); // adding starting path
+        var startPoint = new Point(0, 0); // starting point
+        allPaths.Add(new Point[1] {startPoint}); // adding starting path
         
         while (flag)
         {
             var newPaths = new List<Point[]>();
             foreach (var path in allPaths)
             {
-                var initValues = GetInitValues(path, arr);
-                var availablePoints = GetNextMoves(path[^1].X, path[^1].Y, arr, initValues).ToArray();
-                availablePoints = availablePoints.Where(p => !path.Contains(p)).ToArray();
+                var uniquePathValues = GetUniquePathValues(path, arr);
+                var availablePoints = GetNextMoves(path[^1].X, path[^1].Y, arr)
+                    .Where(p => !path.Contains(p))
+                    .Where(p => uniquePathValues.Count < 2 || (uniquePathValues.Contains(arr[p.X, p.Y])))
+                    .ToArray();
 
                 if (availablePoints.Length == 0)
                 {
@@ -34,6 +37,7 @@ public class BfsSearchStrategy: SearchStrategyBase, ISearchStrategy
                 foreach (var newPoint in availablePoints)
                 {
                     var newPath = new Point[path.Length + 1];
+                    
                     for (int i = 0; i < path.Length; i++)
                     {
                         newPath[i] = path[i];
@@ -50,14 +54,13 @@ public class BfsSearchStrategy: SearchStrategyBase, ISearchStrategy
                 allPaths.Add(path);
             }
 
-            var length = allPaths.OrderBy(p => p.Length).Last().Length;
-            allPaths = allPaths.Where(p => p.Length >= length).ToList();
-                
-            var lastPoint = new Point(arr.GetLength(0) - 1, arr.GetLength(1) - 1);
+            var maxPathLength = allPaths.OrderBy(p => p.Length).Last().Length;
             
-            var pathsCount = Math.Max(arr.GetLength(0), arr.GetLength(1));
+            allPaths = allPaths.Where(p => p.Length == maxPathLength).ToList();
             
-            allPaths = allPaths.OrderBy(p => GetDistance(p.Last(), lastPoint)).Take(pathsCount).ToList();
+            var filteredPathCount = Math.Max(arr.GetLength(0), arr.GetLength(1));
+            
+            allPaths = allPaths.OrderBy(p => GetEuclideanDistanceDistance(p.Last(), lastPoint)).Take(filteredPathCount).ToList();
                 
             foreach (var path in allPaths)
             {

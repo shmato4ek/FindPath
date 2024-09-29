@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 using FindPath.App.Strategy;
-using FindPath.App.Strategy.Helpers;
 using FindPath.App.Strategy.Implementation;
 
 namespace FindPath.App
@@ -51,9 +50,9 @@ namespace FindPath.App
 
         public static Point[] FindShortestPath(int[,] arr)
         {
-            var searchContext = new SearchContext(new BfsSearchStrategy());
+            var findPathContext = new FindPathContext(new BfsSearchPathStrategy());
             
-            return searchContext.Search(arr);
+            return findPathContext.FindPath(arr);
         }
     }
 }

@@ -3,33 +3,27 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 using FindPath.App.Strategy.Abstract;
-using FindPath.App.Strategy.Helpers;
 
 namespace FindPath.App.Strategy.Implementation;
 
-public class EuclideanDistanceSearchStrategy: SearchStrategyBase, ISearchStrategy
+public sealed class EuclideanDistanceSearchPathStrategy: AbstractFindPathStrategy, IFindPathStrategy
 {
     public Point[] FindShortestPath(int[,] arr)
     {
-        var currentPath = new List<Point>();
         var flag = true;
-            
-        var indexX = 0;
-        var indexY = 0;
-
-        var Point = new Point(0, 0);
-        currentPath.Add(Point);
+        
+        var endPoint = new Point(arr.GetLength(0) - 1, arr.GetLength(1) - 1);
+        var currentPath = new List<Point> { new Point(0, 0) };
 
         while (flag)
         {
-            var initValues = GetInitValues(currentPath.ToArray(), arr);
-            var availablePoints = GetNextMoves(currentPath.Last().X, currentPath.Last().Y, arr, initValues)
-                .ToArray();
-            var endPoint = new Point(arr.GetLength(0) - 1, arr.GetLength(1) - 1);
+            var uniquePathValues = GetUniquePathValues(currentPath.ToArray(), arr);
+            var availablePoints = GetNextMoves(currentPath.Last().X, currentPath.Last().Y, arr);
 
             var newPoint = availablePoints
                 .Where(p => !currentPath.Contains(p))
-                .OrderBy(p => GetDistance(p, endPoint))
+                .Where(p => uniquePathValues.Contains(arr[p.X, p.Y]) || availablePoints.Count < 2)
+                .OrderBy(p => GetEuclideanDistanceDistance(p, endPoint))
                 .FirstOrDefault();
 
             if (newPoint == new Point(0, 0) && currentPath.Count != 1)

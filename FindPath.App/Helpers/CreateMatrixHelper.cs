@@ -2,7 +2,7 @@
 using System.Drawing;
 using System.Linq;
 
-namespace FindPath.App.Strategy.Helpers;
+namespace FindPath.App.Helpers;
 
 public static class CreateMatrixHelper
 {

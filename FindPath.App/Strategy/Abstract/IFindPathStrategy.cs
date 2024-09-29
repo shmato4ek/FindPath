@@ -2,7 +2,7 @@
 
 namespace FindPath.App.Strategy.Abstract;
 
-public interface ISearchStrategy
+public interface IFindPathStrategy
 {
     Point[] FindShortestPath(int[,] arr);
 }
