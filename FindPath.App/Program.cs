@@ -11,7 +11,7 @@ namespace FindPath.App
     {
         static void Main(string[] args)
         {
-            int[,] arr = new int[25, 25]
+            var arr = new int[25, 25]
             {
                 {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
                 {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},

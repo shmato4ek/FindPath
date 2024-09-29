@@ -6,9 +6,9 @@ using FindPath.App.Strategy.Abstract;
 
 namespace FindPath.App.Strategy.Implementation;
 
-public sealed class BfsSearchPathStrategy: AbstractFindPathStrategy, IFindPathStrategy
+public sealed class BfsSearchPathStrategy: AbstractFindPathStrategy
 {
-    public Point[] FindShortestPath(int[,] arr)
+    public override Point[] FindShortestPath(int[,] arr)
     {
         var allPaths = new List<Point[]>(); // all current paths
         var flag = true; // flag for algorithm evaluation cycle
@@ -38,7 +38,7 @@ public sealed class BfsSearchPathStrategy: AbstractFindPathStrategy, IFindPathSt
                 {
                     var newPath = new Point[path.Length + 1]; 
                     
-                    for (int i = 0; i < path.Length; i++)
+                    for (var i = 0; i < path.Length; i++)
                     {
                         newPath[i] = path[i];
                     }

@@ -5,7 +5,7 @@ using System.Linq;
 
 namespace FindPath.App.Strategy.Abstract;
 
-public abstract class AbstractFindPathStrategy
+public abstract class AbstractFindPathStrategy : IFindPathStrategy
 {
     private Func<int, int, bool> hasZero = (startValue, endValue) => 
         startValue == 0 || endValue == 0; // checking if the values have zero
@@ -15,8 +15,10 @@ public abstract class AbstractFindPathStrategy
     
     private Func<int, int, bool> valuesNotZero = (startValue, endValue) => 
         startValue != 0 && endValue != 0; // checking if any of the values is not zero
+
+    public abstract Point[] FindShortestPath(int[,] arr);
     
-    protected List<Point> GetNextMoves(int indexX, int indexY, int[,] arr) // get possible next moves for path
+    protected IList<Point> GetNextMoves(int indexX, int indexY, int[,] arr) // get possible next moves for path
     {
         var startValue = arr[indexX, indexY]; // value of start point
         var availablePoints = new List<Point>(); // list of all available points to move
@@ -80,7 +82,7 @@ public abstract class AbstractFindPathStrategy
         return availablePoints;
     }
     
-    protected List<int> GetUniquePathValues(Point[] pathPoints, int[,] arr) // get unique points' values in path
+    protected IList<int> GetUniquePathValues(Point[] pathPoints, int[,] arr) // get unique points' values in path
     {
         var allPathValues = pathPoints.Select(point => arr[point.X, point.Y]).ToList();
 

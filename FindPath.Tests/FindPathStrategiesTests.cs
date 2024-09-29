@@ -47,7 +47,7 @@ public class FindPathStrategiesTests
     [Test]
     public void NonSquareArrayResultLengthTest()
     {
-        int[,] arr = new int[3,4]
+        var arr = new int[3,4]
         {
             {0, 0, 1, 0},
             {0, 1, 0, 0},

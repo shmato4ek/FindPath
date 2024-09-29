@@ -6,9 +6,9 @@ using FindPath.App.Strategy.Abstract;
 
 namespace FindPath.App.Strategy.Implementation;
 
-public sealed class EuclideanDistanceSearchPathStrategy: AbstractFindPathStrategy, IFindPathStrategy
+public sealed class EuclideanDistanceSearchPathStrategy: AbstractFindPathStrategy
 {
-    public Point[] FindShortestPath(int[,] arr)
+    public override Point[] FindShortestPath(int[,] arr)
     {
         var flag = true; // flag for algorithm evaluation cycle
         
