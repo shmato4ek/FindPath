@@ -12,20 +12,6 @@ namespace FindPath.App
     {
         static void Main(string[] args)
         {
-            int[,] testArr = new int [10, 10]
-            {
-                { 0, 0, 1, 0, 0, 0, 0, 0, 1, 1 },
-                { 0, 1, 1, 0, 1, 1, 1, 0, 0, 0 },
-                { 1, 0, 0, 1, 0, 0, 1, 0, 0, 1 },
-                { 1, 1, 0, 0, 0, 1, 1, 0, 1, 0 },
-                { 1, 1, 0, 0, 0, 1, 0, 0, 1, 0 },
-                { 0, 0, 0, 0, 1, 0, 0, 1, 0, 0 },
-                { 1, 1, 1, 0, 0, 0, 0, 1, 0, 0 },
-                { 0, 0, 0, 0, 0, 1, 0, 0, 1, 0 },
-                { 0, 0, 0, 0, 0, 0, 1, 0, 0, 0},
-                { 0, 1, 1, 0, 0, 0, 1, 0, 1, 0}
-            };
-                
             int[,] arr = new int[25, 25]
             {
                 {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
@@ -59,16 +45,14 @@ namespace FindPath.App
             {
                 Console.WriteLine(point);
             }
-
-
+            
             Console.ReadKey();
         }
 
         public static Point[] FindShortestPath(int[,] arr)
         {
-            var searchContext = new SearchContext();
-            searchContext.SetStrategy(new BfsSearchStrategy());
-
+            var searchContext = new SearchContext(new BfsSearchStrategy());
+            
             return searchContext.Search(arr);
         }
     }

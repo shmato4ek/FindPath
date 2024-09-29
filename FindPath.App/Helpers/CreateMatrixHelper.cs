@@ -10,7 +10,7 @@ public static class CreateMatrixHelper
     {
         var random = new Random();
         
-        var size = 100;
+        var size = 25;
             
         var result = new int[size, size];
 
