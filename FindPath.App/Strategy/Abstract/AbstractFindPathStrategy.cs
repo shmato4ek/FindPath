@@ -118,21 +118,25 @@ public abstract class AbstractFindPathStrategy
 
     private bool CanMoveTopLeft(int startValue, int endValue)
     {
-        return valuesNotZero(startValue, endValue);
+        return valuesNotZero(startValue, endValue) &&
+               areEqual(startValue, endValue);
     }
 
     private bool CanMoveTopRight(int startValue, int endValue)
     {
-        return valuesNotZero(startValue, endValue);
+        return valuesNotZero(startValue, endValue) &&
+               areEqual(startValue, endValue);
     }
 
     private bool CanMoveBottomLeft(int startValue, int endValue)
     {
-        return valuesNotZero(startValue, endValue);
+        return valuesNotZero(startValue, endValue) &&
+               areEqual(startValue, endValue);
     }
 
     private bool CanMoveBottomRight(int startValue, int endValue)
     {
-        return valuesNotZero(startValue, endValue);
+        return valuesNotZero(startValue, endValue) &&
+               areEqual(startValue, endValue);
     }
 }

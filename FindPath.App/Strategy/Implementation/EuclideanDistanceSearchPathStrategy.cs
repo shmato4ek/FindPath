@@ -22,10 +22,10 @@ public sealed class EuclideanDistanceSearchPathStrategy: AbstractFindPathStrateg
 
             var newPoint = availablePoints // choosing next path step
                 .Where(p => !currentPath.Contains(p)) // checking if current path does not contain the point
-                .Where(p => uniquePathValues.Contains(arr[p.X, p.Y]) || availablePoints.Count < 2) // check if the points' values are valid
+                .Where(p => uniquePathValues.Contains(arr[p.X, p.Y]) || uniquePathValues.Count < 2) // check if the points' values are valid
                 .OrderBy(p => GetEuclideanDistanceDistance(p, endPoint)) // order available points by Euclidean distance to the target point
                 .FirstOrDefault(); // picking the closest point
-
+            
             if (newPoint == new Point(0, 0) && currentPath.Count != 1) // check if algorithm did not find the path
             {
                 throw new Exception("Path could not be found");

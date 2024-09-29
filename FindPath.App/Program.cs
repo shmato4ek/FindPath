@@ -57,7 +57,7 @@ namespace FindPath.App
 
         public static Point[] FindShortestPath(int[,] arr)
         {
-            var findPathContext = new FindPathContext(new BfsSearchPathStrategy()); // setting search algorithm
+            var findPathContext = new FindPathContext(new EuclideanDistanceSearchPathStrategy()); // setting search algorithm
             
             return findPathContext.FindPath(arr);
         }
